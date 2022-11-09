@@ -5,7 +5,7 @@ import AppRouter from "./router/AppRouter";
 function App() {
   return (
     <AuthProvider>
-      <Toaster position="top-right" />
+      <Toaster position="top-right" reverseOrder={false} />
       <AppRouter />
     </AuthProvider>
   );

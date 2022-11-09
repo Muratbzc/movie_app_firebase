@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 const Main = () => {
   const { currentUser } = useContext(AuthContext);
@@ -32,18 +33,27 @@ const Main = () => {
   }, []);
 
   const getMovieFromApiToSearch = async () => {
-    const res = await axios(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`
-    );
-    const data = res.data.results;
-    setMovies(data);
-    console.log(data);
+    try {
+      const res = await axios(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`
+      );
+      const data = res.data.results;
+      setMovies(data);
+    } catch (error) {
+      console.log("serch error");
+    }
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    getMovieFromApiToSearch();
-    setQuery("");
+    if (query) {
+      toast.promise(getMovieFromApiToSearch(), {
+        loading: "Loading...",
+      });
+      setQuery("");
+    } else {
+      toast.error("Please enter a text");
+    }
   };
 
   return (
