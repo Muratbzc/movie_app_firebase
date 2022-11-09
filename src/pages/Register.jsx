@@ -15,7 +15,8 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    register(userInfo.email, userInfo.password, navigate);
+    const displayName = `${userInfo.firstname} ${userInfo.lastname}`;
+    register(userInfo.email, userInfo.password, navigate, displayName);
   };
   return (
     <form onSubmit={handleRegister}>
@@ -100,7 +101,7 @@ const Register = () => {
           fullWidth
           variant="contained"
           size="small"
-          onClick={singWithGoogle}
+          onClick={() => singWithGoogle(navigate)}
         >
           Continue with Google
         </Button>

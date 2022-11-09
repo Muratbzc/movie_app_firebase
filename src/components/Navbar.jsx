@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,12 +10,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../auth/firebase";
-import { Avatar } from "@mui/material";
+import { AuthContext } from "../context/AuthContext";
+import avatar from "../image/avatar.png";
 
 function Navbar() {
-  const user = true;
+  const { currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -97,7 +100,7 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {!user ? (
+              {!currentUser ? (
                 <MenuItem onClick={goAndCloseLogin}>
                   <Typography textAlign="">Login</Typography>
                 </MenuItem>
@@ -137,7 +140,7 @@ function Navbar() {
               justifyContent: "end",
             }}
           >
-            {!user ? (
+            {!currentUser ? (
               <Button
                 onClick={() => navigate("login")}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -161,10 +164,13 @@ function Navbar() {
             </Button>
           </Box>
 
-          {user && (
+          {currentUser && (
             <Box sx={{ flexGrow: 0 }}>
               <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt={currentUser?.displayName}
+                  src={currentUser?.photoURL || avatar}
+                />
               </IconButton>
             </Box>
           )}

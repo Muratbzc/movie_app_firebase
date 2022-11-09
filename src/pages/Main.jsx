@@ -1,6 +1,6 @@
 import { Container, Grid, TextField } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -9,8 +9,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Main = () => {
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
   const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
@@ -104,7 +106,10 @@ const Main = () => {
                       variant="contained"
                       size="small"
                       color="warning"
-                      onClick={() => navigate(`${id}`)}
+                      onClick={() => {
+                        navigate(`${id}`);
+                        !currentUser && alert("please log in to see details");
+                      }}
                     >
                       Learn More
                     </Button>

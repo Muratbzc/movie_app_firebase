@@ -65,7 +65,7 @@ const Login = () => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={singWithGoogle}
+              onClick={() => singWithGoogle(navigate)}
             >
               Continue with Google
             </Button>
