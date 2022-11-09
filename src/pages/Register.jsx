@@ -80,6 +80,7 @@ const Register = () => {
         <TextField
           fullWidth
           id="password"
+          type="password"
           variant="outlined"
           label="Enter your password"
           value={userInfo?.password}
