@@ -6,7 +6,7 @@ Our goal in this project is to create build a Movi App using ReactJS and Firebas
 
 ## Outcome
 
-![Project 036](./recipe.gif)
+![Project 036](./movie.gif)
 
 ## Used Tech and Libraries
 - React JS
